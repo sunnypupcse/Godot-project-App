@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://vtr5xe5mrahg"]
+
+[ext_resource type="Script" path="res://project/world.gd" id="1_bcbau"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_bcbau")
+
+[node name="play" type="Button" parent="."]
+offset_left = 329.0
+offset_top = 16.0
+offset_right = 750.0
+offset_bottom = 275.0
+text = "PLAY"
+
+[node name="quit" type="Button" parent="."]
+offset_left = 331.0
+offset_top = 318.0
+offset_right = 752.0
+offset_bottom = 577.0
+text = "QUIT"
+
+[connection signal="pressed" from="play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]

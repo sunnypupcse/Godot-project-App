@@ -1,0 +1,72 @@
+[gd_scene load_steps=9 format=3 uid="uid://bisjgy5ow3dtl"]
+
+[ext_resource type="Texture2D" uid="uid://blltmvuow7rvr" path="res://project/PNGs/Character_.png" id="1_5ji42"]
+[ext_resource type="Script" path="res://project/player1.gd" id="1_vemgw"]
+[ext_resource type="Script" path="res://project/pannnel.gd" id="3_uhonf"]
+[ext_resource type="Script" path="res://project/panel_2.gd" id="4_in3nb"]
+[ext_resource type="Texture2D" uid="uid://dyj8i162g6cu3" path="res://project/PNGs/Hat_.png" id="7_bvmx2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4mljw"]
+radius = 101.0
+height = 334.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_to6cw"]
+radius = 36.0555
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ybsul"]
+size = Vector2(468, 553)
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_vemgw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CapsuleShape2D_4mljw")
+
+[node name="character" type="Sprite2D" parent="."]
+scale = Vector2(0.316399, 0.252451)
+texture = ExtResource("1_5ji42")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="pannnel" type="Panel" parent="Camera2D"]
+offset_left = -574.0
+offset_top = 222.0
+offset_right = 578.0
+offset_bottom = 323.0
+script = ExtResource("3_uhonf")
+
+[node name="Panel2" type="Panel" parent="Camera2D/pannnel"]
+layout_mode = 0
+offset_left = 535.0
+offset_top = 21.0
+offset_right = 615.0
+offset_bottom = 77.0
+script = ExtResource("4_in3nb")
+
+[node name="Hat" type="Sprite2D" parent="Camera2D/pannnel/Panel2"]
+position = Vector2(39, 29)
+scale = Vector2(0.3, 0.2655)
+texture = ExtResource("7_bvmx2")
+
+[node name="Area2D" type="Area2D" parent="Camera2D/pannnel/Panel2"]
+position = Vector2(40, 29)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/pannnel/Panel2/Area2D"]
+position = Vector2(-3, 1)
+shape = SubResource("CircleShape2D_to6cw")
+
+[node name="det" type="Area2D" parent="."]
+position = Vector2(149, -1)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="det"]
+position = Vector2(191, -51.5)
+shape = SubResource("RectangleShape2D_ybsul")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="det"]
+position = Vector2(-491, -55)
+shape = SubResource("RectangleShape2D_ybsul")
+
+[connection signal="gui_input" from="Camera2D/pannnel/Panel2" to="Camera2D/pannnel/Panel2" method="_on_gui_input"]
+[connection signal="body_entered" from="Camera2D/pannnel/Panel2/Area2D" to="Camera2D/pannnel/Panel2" method="_on_area_2d_body_entered"]
+[connection signal="area_entered" from="det" to="Camera2D/pannnel/Panel2" method="_on_det_area_entered"]
